@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/account_main_page_style.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="lessons-list">
+    <h2>Моё домашнее задание</h2>
+
+    <div class="lessons-container">
+        {% if homeworks %}
+            {% for homework in homeworks %}
+                <div class="homework-card">
+                    <h3 class="homework-title">Задание: {{ homework.homework_task }}</h3>
+                    {% if homework.mark %}
+                        <p><strong>Оценка:</strong> {{ homework.mark.homework_mark }}</p>
+                        <p><strong>Комментарий к оценке:</strong> {{ homework.mark.comment }}</p>
+                    {% else %}
+                        <p><em>Ещё не оценено</em></p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>У вас пока нет домашнего задания.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,94 @@
+.lessons-list {
+    display: flex;
+    flex-direction: column; /* Вертикальное расположение заголовка и списка */
+    align-items: flex-start; /* Выровнять по левому краю */
+    margin-left: 160px; /* Отступ, равный ширине боковой панели */
+    padding: 20px; /* Общие отступы для содержимого */
+}
+
+.button-container {
+    width: 100%; /* Занимает всю ширину родителя */
+    display: flex;
+    justify-content: flex-end; /* Выровнять кнопку вправо */
+    margin: 20px 0; /* Отступы вокруг кнопки */
+}
+
+.lessons-container {
+    display: flex;
+    flex-direction: column; /* Вертикальное расположение уроков */
+    align-items: flex-start; /* Выровнять по левому краю */
+    width: 100%; /* Занимает всю ширину родителя */
+}
+
+.lessons-grid {
+    width: 100%; /* Занимает всю ширину */
+}
+
+.lesson-card {
+    background-color: #f9f9f9; /* Цвет фона карточки */
+    border: 1px solid #ddd; /* Рамка карточки */
+    border-radius: 5px; /* Скругление углов */
+    padding: 15px; /* Отступы внутри карточки */
+    margin: 10px 0; /* Отступы между карточками */
+    width: 100%; /* Занимает всю ширину */
+    max-width: 600px; /* Ограничение максимальной ширины карточки */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Лёгкая тень */
+}
+
+.create-lesson-button {
+    padding: 10px 20px; /* Отступы внутри кнопки */
+    font-size: 16px; /* Размер шрифта */
+    color: white; /* Цвет текста */
+    background-color: #007BFF; /* Цвет фона кнопки */
+    border: none; /* Убираем рамку */
+    border-radius: 5px; /* Скругление углов */
+    text-decoration: none; /* Убираем подчеркивание */
+    display: inline-block; /* Чтобы кнопка вела себя как элемент блока */
+    cursor: pointer; /* Указатель при наведении */
+    transition: background-color 0.3s; /* Плавный переход цвета фона */
+}
+
+.create-lesson-button:hover {
+    background-color: #0056b3; /* Цвет фона при наведении */
+}
+
+}
+
+/* Общий контейнер для домашнего задания */
+.lessons-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Расстояние между карточками */
+    margin: 20px;
+}
+
+/* Карточка для каждого домашнего задания */
+.homework-card {
+    background-color: #f9f9f9; /* Светлый фон */
+    border: 1px solid #ddd; /* Лёгкая граница */
+    border-radius: 8px; /* Закруглённые углы */
+    padding: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Тень для карточки */
+    transition: transform 0.2s ease, box-shadow 0.2s ease; /* Плавный эффект */
+}
+
+/* Эффект наведения на карточку */
+.homework-card:hover {
+    transform: translateY(-5px); /* Лёгкое поднятие при наведении */
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); /* Увеличенная тень */
+}
+
+/* Заголовок карточки */
+.homework-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+/* Стиль для текста внутри карточки */
+.homework-card p {
+    font-size: 14px;
+    color: #555;
+    margin: 5px 0;
+}

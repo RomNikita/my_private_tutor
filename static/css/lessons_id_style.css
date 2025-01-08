@@ -1,0 +1,80 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+}
+
+.lesson-detail-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.lesson-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.lesson-header h1 {
+    font-size: 2em;
+    color: #333;
+    margin: 0;
+}
+
+.lesson-header p {
+    font-size: 1em;
+    color: #666;
+}
+
+.lesson-section {
+    margin-bottom: 20px;
+}
+
+.lesson-section h2 {
+    font-size: 1.5em;
+    color: #333;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+}
+
+.homework-list, .student-list {
+    list-style: none;
+    padding: 0;
+}
+
+.homework-list li, .student-list li {
+    background-color: #f8f9fa;
+    border: 1px solid #e1e4e8;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.homework-list li p, .student-list li {
+    margin: 5px 0;
+    font-size: 1em;
+    color: #555;
+}
+
+.homework-list a {
+    color: #3498db;
+    text-decoration: none;
+}
+
+.homework-list a:hover {
+    text-decoration: underline;
+}
+
+.lesson-section p {
+    font-size: 1em;
+    color: #555;
+}
+
+strong {
+    color: #333;
+}

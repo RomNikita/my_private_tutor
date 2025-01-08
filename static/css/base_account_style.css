@@ -1,0 +1,75 @@
+/* Стиль для верхней панели */
+header {
+  position: relative;
+  background-color: transparent; /* Убираем фон */
+  color: white;
+  padding: 0; /* Убираем отступы сверху и снизу */
+  display: flex;
+  justify-content: space-between; /* Для распределения контента по обеим сторонам */
+  align-items: center;
+  width: 100%; /* Убедитесь, что панель занимает всю ширину экрана */
+  box-shadow: none; /* Убираем возможные тени, если они есть */
+}
+
+/* Кнопки входа, выхода и регистрации */
+.auth-buttons {
+  position: absolute;  /* Абсолютное позиционирование */
+  right: 20px; /* Располагаем кнопки справа */
+  top: 50%;  /* Центрируем кнопки по вертикали */
+  transform: translateY(-50%);  /* Для точного центрирования */
+  display: flex;
+  gap: 15px;  /* Расстояние между кнопками */
+  align-items: center;  /* Выравнивание текста по центру */
+}
+
+/* Стили для кнопок */
+.auth-buttons .btn {
+  background-color: #333; /* Устанавливаем фон кнопок */
+  color: white; /* Цвет текста белый */
+  padding: 10px 20px;
+  text-decoration: none;
+  border: 1px solid transparent; /* Убираем границу */
+  border-radius: 5px;
+  white-space: nowrap; /* Запрещаем перенос текста */
+  display: flex;
+  align-items: center; /* Центрируем текст по вертикали */
+  transition: background-color 0.3s ease; /* Плавное изменение фона при наведении */
+}
+
+.auth-buttons .btn:hover {
+  background-color: #4CAF50; /* Зеленый цвет при наведении */
+  color: white;
+  border-color: #4CAF50; /* Зеленая граница при наведении */
+}
+
+/* Стили для бокового меню */
+.sidenav {
+    height: 100%;
+    width: 160px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+/* Навигационные ссылки в боковом меню */
+.sidenav a {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+}
+
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+
+/* Мобильная версия для бокового меню */
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}

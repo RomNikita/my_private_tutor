@@ -1,0 +1,64 @@
+/* Основные стили для контейнера */
+.homework-create-container {
+    max-width: 600px; /* Максимальная ширина контейнера */
+    margin: 20px auto; /* Центрирование контейнера */
+    padding: 20px; /* Отступы внутри контейнера */
+    border: 1px solid #ccc; /* Рамка вокруг контейнера */
+    border-radius: 8px; /* Закругленные углы */
+    background-color: #f9f9f9; /* Фоновый цвет */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Тень */
+}
+
+/* Заголовок формы */
+h2 {
+    text-align: center; /* Центрирование текста */
+    color: #333; /* Цвет заголовка */
+}
+
+/* Стили для формы */
+form {
+    display: flex;
+    flex-direction: column; /* Вертикальное выравнивание элементов */
+}
+
+/* Стили для элементов формы */
+form input[type="text"],
+form textarea,
+form input[type="file"] {
+    padding: 10px; /* Отступы внутри полей ввода */
+    margin: 10px 0; /* Отступы между элементами формы */
+    border: 1px solid #ccc; /* Рамка вокруг полей ввода */
+    border-radius: 4px; /* Закругленные углы */
+    font-size: 16px; /* Размер шрифта */
+}
+
+/* Стили для кнопки отправки */
+button[type="submit"] {
+    padding: 10px; /* Отступы внутри кнопки */
+    margin-top: 15px; /* Отступ сверху */
+    background-color: #28a745; /* Цвет фона кнопки */
+    color: white; /* Цвет текста кнопки */
+    border: none; /* Без рамки */
+    border-radius: 4px; /* Закругленные углы */
+    cursor: pointer; /* Курсор в виде руки при наведении */
+    font-size: 16px; /* Размер шрифта */
+    transition: background-color 0.3s; /* Плавный переход цвета фона */
+}
+
+/* Стили для кнопки при наведении */
+button[type="submit"]:hover {
+    background-color: #218838; /* Более темный цвет фона при наведении */
+}
+
+/* Стили для сообщений об ошибках */
+.errorlist {
+    background-color: #ffdddd; /* Цвет фона для ошибок */
+    border: 1px solid #f5c2c7; /* Рамка вокруг ошибок */
+    padding: 10px; /* Отступы внутри блока ошибок */
+    border-radius: 4px; /* Закругленные углы */
+    margin-bottom: 15px; /* Отступ снизу */
+}
+
+.error {
+    color: #d8000c; /* Цвет текста ошибок */
+}

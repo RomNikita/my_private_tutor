@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load static %}
+{% block head %}
+
+<link rel="stylesheet" href="{% static 'css/homework_create_style.css' %}">
+
+{% endblock %}
+
+{% block content %}
+<div class="homework-create-container">
+    <h2>Создание домашнего задания для урока: {{ lesson.title }}</h2>
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Создать</button>
+    </form>
+</div>
+{% endblock %}

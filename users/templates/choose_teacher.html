@@ -1,0 +1,6 @@
+  <h2>Выберите учителя:</h2>
+    <form method="post" action="{% url 'choose_teacher' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Выбрать</button>
+    </form>

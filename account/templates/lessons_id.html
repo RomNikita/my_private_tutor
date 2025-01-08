@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/lessons_id_style.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="lesson-detail-container">
+    <div class="lesson-header">
+        <h1>{{ lesson.title }}</h1>
+        <p><strong>Дата урока:</strong> {{ lesson.date_of_lesson }}</p>
+        <p><strong>Время урока:</strong> {{ lesson.time_of_lesson }}</p>
+    </div>
+
+    <div class="lesson-section">
+        <h2>Домашние задания</h2>
+        {% if perms.account.create_homework %}
+        <div class="button-container">
+            <a class="add-homework-button" href="{% url 'account:homework_create' lesson.slug %}">Дать домашнее задание</a>
+        </div>
+        {% endif %}
+        <ul class="homework-list">
+            {% for homework in lesson.homeworks.all %}
+            <li>
+                <p><strong>Задание:</strong> {{ homework.homework_task }}</p>
+                {% if homework.materials %}
+                <p><a href="{{ homework.materials.url }}" target="_blank">Материалы для задания</a></p>
+                {% endif %}
+                {% if homework.mark %}
+                <p><strong>Оценка:</strong> {{ homework.mark.homework_mark }} ({{ homework.mark.comment }})</p>
+                {% else %}
+                <p><em>Оценка не выставлена</em></p>
+                {% endif %}
+            </li>
+            {% empty %}
+            <p>Нет домашних заданий для этого урока.</p>
+            {% endfor %}
+        </ul>
+    </div>
+
+</div>
+{% endblock %}

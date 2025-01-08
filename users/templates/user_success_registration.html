@@ -1,0 +1,10 @@
+{% load static %}
+</head>
+<link href={% static 'css/success_registration.css' %} rel="stylesheet">
+<body>
+    <div class="container">
+        <h1>Успешная регистрация!</h1>
+        <a class="btn" href="{% url 'users:login' %}">На главную</a>
+    </div>
+</body>
+</html>
