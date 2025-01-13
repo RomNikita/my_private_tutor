@@ -6,6 +6,7 @@ from django.views.generic import TemplateView, ListView, CreateView, DetailView
 
 from account.forms import LessonCreateForm, HomeworkCreateForm
 from account.models import Homework, Lessons
+from users.models import User
 
 
 class MainPageView(TemplateView):
@@ -18,8 +19,18 @@ class LessonsListView(LoginRequiredMixin, ListView):
     context_object_name = 'lessons'
 
     def get_queryset(self):
+
         student = self.request.user
-        return Lessons.objects.filter(students=student)
+        if student.is_staff:
+            return Lessons.objects.all().order_by('date_of_lesson')
+        return Lessons.objects.filter(students=student).order_by('date_of_lesson')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['lesson_dates'] = [
+            lesson.date_of_lesson.strftime('%Y-%m-%d') for lesson in self.get_queryset()
+        ]
+        return context
 
 
 class LessonsCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
@@ -35,6 +46,15 @@ class HomeworkListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     template_name = 'homework_list.html'
     context_object_name = 'homeworks'
     permission_required = 'account.view_homework'
+
+    def get_queryset(self):
+        student = self.request.user
+        if student.is_staff:
+            return Homework.objects.all()
+        return Homework.objects.filter(students=student)
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        pass
 
 
 class LessonsDetailView(LoginRequiredMixin,  DetailView):
@@ -68,6 +88,32 @@ class HomeworkCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView
     def get_success_url(self):
         lesson_slug = self.kwargs.get('lesson_slug')
         return reverse_lazy('account:lessons_detail', kwargs={'slug': lesson_slug})
+
+
+class TeacherLessonsView(LoginRequiredMixin, ListView):
+    model = User
+    template_name = 'teacher_lessons.html'  # Новый шаблон для учителей
+    context_object_name = 'students'
+
+    def get_queryset(self):
+        return User.objects.filter(groups__name='Ученики')
+
+
+class StudentLessonsView(LoginRequiredMixin, ListView):
+    model = Lessons
+    template_name = 'for_teacher_st_lessons.html'
+    context_object_name = 'lessons'
+
+    def get_queryset(self):
+        student = User.objects.get(id=self.kwargs['student_id'])  # Получаем ученика по ID
+        return Lessons.objects.filter(students=student).order_by('date_of_lesson')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        student = get_object_or_404(User, id=self.kwargs['student_id'])
+        context['student'] = student  # Добавляем объект student в контекст
+        return context
+
 
 
 

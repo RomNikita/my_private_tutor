@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/for_teacher_st_lessons_style.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<h2 class="student-lessons-title">Уроки ученика {{ student.name }} {{ student.surname }}</h2>
+
+{% if lessons %}
+<div class="lessons-list">
+    {% for lesson in lessons %}
+    <div class="lesson-card">
+        <h3>{{ lesson.title }}</h3>
+        <p><strong>Дата:</strong> {{ lesson.date_of_lesson }}</p>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<h2 class="no-lessons-title">У него пока нет уроков
+{% endif %}
+{% endblock %}

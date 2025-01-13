@@ -3,9 +3,60 @@
 
 {% block head %}
 <link rel="stylesheet" href="{% static 'css/account_main_page_style.css' %}">
+<link rel="stylesheet" href="{% static 'css/custom_calendar.css' %}">
+{{ block.super }}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+{% endblock %}
+
+{% block extra_js %}
+{{ block.super }}
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ru.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const lessonsDates = [
+        {% for lesson in lessons %}
+            "{{ lesson.date_of_lesson|date:'Y-m-d' }}",  // Форматируем как "YYYY-MM-DD"
+        {% endfor %}
+    ];
+
+    if (lessonsDates.length > 0) {
+        // Преобразуем даты в формат "YYYY-MM-DD"
+        const formattedDates = lessonsDates.map(date => date);
+
+        flatpickr("#calendar", {
+            inline: true,
+            dateFormat: "Y-m-d",
+            locale: "ru",
+            enable: formattedDates, // Включаем только дни с уроками
+            disableMobile: true,
+            onDayCreate: function(dObj, dStr, fp, dayElem) {
+                const date = dayElem.dateObj;
+
+                // Преобразуем дату в формат "YYYY-MM-DD", учитывая локальный часовой пояс
+                const formattedDate = date.toLocaleDateString('en-CA');  // 'en-CA' — формат "YYYY-MM-DD"
+
+                // Если дата есть в списке с уроками, добавляем data-атрибут
+                if (formattedDates.includes(formattedDate)) {
+                    dayElem.setAttribute('data-has-lesson', 'true');
+                }
+            }
+        });
+    }
+});
+</script>
 {% endblock %}
 
 {% block content %}
+<div class="calendar-container">
+    <h2>Календарь уроков</h2>
+    <!-- Место для всегда видимого календаря -->
+    <div id="calendar"></div> <!-- Здесь будет сам календарь -->
+</div>
+
 <div class="lessons-list">
     <h2>Мои уроки</h2>
     {% if perms.account.create_lesson %}
@@ -15,21 +66,22 @@
     {% endif %}
     <div class="lessons-container">
         {% if lessons %}
-            <div class="lessons-grid">
-                {% for lesson in lessons %}
-                    <div class="lesson-card">
-                        <h3>
-                            <a href="{% url 'account:lessons_detail' slug=lesson.slug %}">
-                                {{ lesson.title }}
-                            </a>
-                        </h3>
-                        <p><strong>Дата:</strong> {{ lesson.date_of_lesson }}</p>
-                    </div>
-                {% endfor %}
+        <div class="lessons-grid">
+            {% for lesson in lessons %}
+            <div class="lesson-card">
+                <h3>
+                    <a href="{% url 'account:lessons_detail' slug=lesson.slug %}">
+                        {{ lesson.title }}
+                    </a>
+                </h3>
+                <p><strong>Дата:</strong> {{ lesson.date_of_lesson }}</p>
             </div>
+            {% endfor %}
+        </div>
         {% else %}
-            <p>У вас пока нет уроков.</p>
+        <p>У вас пока нет уроков.</p>
         {% endif %}
     </div>
 </div>
 {% endblock %}
+

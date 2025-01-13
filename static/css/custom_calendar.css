@@ -1,0 +1,100 @@
+/* Контейнер для календаря, выравниваем его по правому краю */
+.calendar-container {
+    position: fixed; /* Фиксируем календарь на экране */
+    right: 20px; /* Отступ от правого края */
+    top: 20px; /* Отступ сверху */
+    z-index: 1000; /* Повышаем приоритет, чтобы календарь не перекрывался другими элементами */
+}
+
+/* Стили для календаря */
+.flatpickr-calendar {
+    background-color: #FFC0CB; /* Фон всего календаря */
+    border: 1px solid #ddd; /* Рамка календаря */
+    border-radius: 10px; /* Скругленные углы */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Тень для объема */
+    width: 400px; /* Увеличиваем ширину */
+    font-size: 18px; /* Увеличиваем размер шрифта */
+}
+
+/* Стили для дней с уроками */
+.flatpickr-day.lesson-day {
+    background-color: red !important; /* Красный фон */
+    color: white !important; /* Белый текст */
+    border-radius: 50%; /* Скругленные углы */
+    font-weight: bold; /* Жирный шрифт */
+    transition: transform 0.2s ease; /* Эффект при наведении */
+}
+
+/* Эффект наведения на дни с уроками */
+.flatpickr-day.lesson-day:hover {
+    transform: scale(1.1); /* Увеличение дня при наведении */
+    background-color: darkred !important; /* Темно-красный фон */
+}
+
+/* Стили для сегодняшнего дня */
+.flatpickr-day.today {
+    background-color: #007BFF !important; /* Синий фон */
+    color: white !important; /* Белый текст */
+    border: 2px solid #0056b3; /* Синяя рамка */
+}
+
+/* Стили для выбранного дня */
+.flatpickr-day.selected {
+    background-color: #28a745 !important; /* Зеленый фон */
+    color: white !important; /* Белый текст */
+}
+
+/* Заголовок календаря */
+.flatpickr-month {
+    background-color: #007BFF; /* Синий фон */
+    color: white; /* Белый текст */
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 8px 8px 0 0; /* Скругление только верхних углов */
+}
+
+/* Стрелки навигации */
+.flatpickr-prev-month,
+.flatpickr-next-month {
+    color: white;
+    background-color: pink;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Эффект при наведении на стрелки */
+.flatpickr-prev-month:hover,
+.flatpickr-next-month:hover {
+    background-color: #C71585;
+    cursor: pointer;
+}
+
+/* Все дни текущего месяца будут серыми по умолчанию */
+.flatpickr-day {
+    color: black !important; /* Серый текст */
+    background-color: #f0f0f0 !important; /* Серый фон */
+}
+
+/* Дни с уроками будут розовыми */
+.flatpickr-day[data-has-lesson="true"] {
+    color: #fff !important; /* Белый текст */
+    background-color: pink !important; /* Красный фон для дней с уроками */
+}
+
+/* Дни из других месяцев будут обычного цвета */
+.flatpickr-day.prevMonthDay,
+.flatpickr-day.nextMonthDay {
+    color: #bbb !important; /* Серый текст */
+    background-color: transparent !important; /* Прозрачный фон */
+}
+
+/* Выделение текущего дня (если нужно) */
+.flatpickr-day.today {
+    color: #fff !important; /* Белый цвет текста */
+    background-color: #007bff !important; /* Синий фон для текущего дня */
+}

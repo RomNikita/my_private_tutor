@@ -2,6 +2,9 @@
 {% block head %}
 {% endblock %}
 
+{% block extra_js %}
+{% endblock %}
+
 {% block menu %}
 <html lang="en">
 <head>
@@ -9,6 +12,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Личный кабинет</title>
   <link rel="stylesheet" href="{% static 'css/base_account_style.css' %}">
+  <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
 </head>
 <body>
 
@@ -28,7 +32,12 @@
   </header>
 
   <div class="sidenav">
+       {% if user.is_authenticated and not user.is_staff %}
       <a class="button" href="{% url 'account:account_main_page' %}">Мои уроки</a>
+      {% endif %}
+      {% if user.is_authenticated and user.is_staff %}
+      <a class="button" href="{% url 'account:teacher_lessons' %}">Мои уроки</a>
+      {% endif %}
       <a class="button" href="{% url 'account:homework_list' %}">Домашнее задание</a>
       <a class="button" href="{% url 'account:homework_list' %}">Мои достижения</a>
       <a class="button" href="{% url 'account:homework_list' %}">Материалы</a>

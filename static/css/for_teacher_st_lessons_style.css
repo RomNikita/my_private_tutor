@@ -1,0 +1,58 @@
+/* Основной стиль для заголовка */
+.student-lessons-title {
+    font-size: 24px; /* Размер шрифта */
+    font-weight: bold; /* Жирное начертание */
+    margin-bottom: 20px; /* Отступ снизу */
+    color: #333; /* Цвет шрифта */
+    margin-left: 160px; /* Отступ от боковой панели */
+}
+
+/* Стиль для списка уроков */
+.lessons-list {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 160px; /* Отступ от боковой панели */
+    padding: 20px;
+    width: 100%;
+}
+
+/* Карточка урока */
+.lesson-card {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    margin: 10px 0;
+    width: 100%;
+    max-width: 600px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Эффект наведения на карточку */
+.lesson-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Стиль для заголовков внутри карточек */
+.lesson-card h3 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Стиль для текста внутри карточек */
+.lesson-card p {
+    font-size: 14px;
+    color: #555;
+    margin: 5px 0;
+}
+
+.no-lessons-title {
+    font-size: 24px; /* Размер шрифта */
+    font-weight: bold; /* Жирное начертание */
+    margin-bottom: 20px; /* Отступ снизу */
+    color: red; /* Цвет шрифта */
+    margin-left: 160px; /* Отступ от боковой панели */
+}

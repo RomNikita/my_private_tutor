@@ -32,6 +32,7 @@ class Homework(models.Model):
     homework_task = models.TextField(verbose_name='задание для дз')
     mark = models.ForeignKey(Mark, on_delete=models.CASCADE, verbose_name='оценка', **NULLABLE)
     materials = models.FileField(upload_to='homeworks')
+    students = models.ManyToManyField(User, verbose_name='ученики', blank=True)
 
     class Meta:
         verbose_name = 'домашнее задание'
