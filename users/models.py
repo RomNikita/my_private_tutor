@@ -1,45 +1,59 @@
-from django.contrib.auth.models import AbstractUser, BaseUserManager
+from django.contrib.auth.models import AbstractUser, BaseUserManager, Group
 from django.core.exceptions import ValidationError
 from django.db import models
-from django.contrib.auth.models import Group
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 NULLABLE = {'blank': True, 'null': True}
 
 
 class CustomUserManager(BaseUserManager):
-    def create_user(self, phone, email, password=None, **extra_fields):
-        if not email and not phone:
-            raise ValueError('The email or phone must be set')
+    def create_user(self, phone, email=None, password=None, **extra_fields):
+        if not phone:
+            raise ValueError('Phone number is required')
+
         email = self.normalize_email(email) if email else None
         user = self.model(phone=phone, email=email, **extra_fields)
-        user.set_password(password)
+
+        if password:
+            user.set_password(password)
+        else:
+            user.set_unusable_password()
+
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, phone, email, password=None, **extra_fields):
+    def create_superuser(self, phone, email=None, password=None, **extra_fields):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
+
+        if not password:
+            raise ValueError('Superuser must have a password')
 
         return self.create_user(phone, email, password, **extra_fields)
 
 
 class User(AbstractUser):
+    # Удаляем стандартное поле username
     username = None
 
+    # Задаём свои поля
     email = models.EmailField(max_length=150, verbose_name='электронная почта', **NULLABLE)
-    password = models.CharField(max_length=100, verbose_name='пароль')
     phone = models.CharField(max_length=50, unique=True, verbose_name='номер телефона')
-    avatar = models.ImageField(upload_to='user', verbose_name='аватар')
     name = models.CharField(max_length=100, verbose_name='имя')
     surname = models.CharField(max_length=100, verbose_name='фамилия')
-    date_of_birthday = models.DateField(verbose_name='дата рождения')
+    date_of_birth = models.DateField(verbose_name='дата рождения', **NULLABLE)
+
+    avatar = models.ImageField(upload_to='user', verbose_name='аватар', **NULLABLE)
+
+    # Настройки авторизации
     USERNAME_FIELD = 'phone'
     REQUIRED_FIELDS = ['email']
 
     objects = CustomUserManager()
 
     def __str__(self):
-        return f'{self.name} {self.surname}'
+        return f'{self.name} {self.surname} (тел: {self.phone})'
 
     def clean(self):
         super().clean()
@@ -48,15 +62,10 @@ class User(AbstractUser):
             if existing_user:
                 raise ValidationError({'email': 'Email must be unique'})
 
-    def save(self, *args, **kwargs):
-        # Сохраняем пользователя в базе данных, чтобы получить его id
-        if self._state.adding:
-            super().save(*args, **kwargs)  # Сначала сохраняем пользователя, чтобы получить ID
 
-            # После того как пользователь сохранен, добавляем его в группу "Ученики"
-            students_group, created = Group.objects.get_or_create(name='Ученики')
-            self.groups.add(students_group)
-
-        # Валидация и повторное сохранение пользователя
-        self.clean()
-        super().save(*args, **kwargs)
+# Добавление пользователя в группу "Ученики" после создания
+@receiver(post_save, sender=User)
+def add_user_to_students_group(sender, instance, created, **kwargs):
+    if created:
+        group, _ = Group.objects.get_or_create(name='Ученики')
+        instance.groups.add(group)

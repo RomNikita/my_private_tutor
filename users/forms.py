@@ -6,4 +6,4 @@ from django import forms
 class UserRegisterForm(UserCreationForm):
     class Meta:
         model = get_user_model()
-        fields = ('name', 'surname', 'date_of_birthday', 'phone', 'password1', 'password2', 'avatar')
+        fields = ('name', 'surname', 'date_of_birth', 'phone', 'password1', 'password2', 'avatar')
